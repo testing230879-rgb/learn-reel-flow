@@ -37,34 +37,56 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
     // Auto-play current video, pause others
     playerRefs.current.forEach((player, index) => {
       if (player) {
-        if (index === currentIndex) {
-          player.playVideo();
-        } else {
-          player.pauseVideo();
+        try {
+          // Check if player is ready and attached to DOM
+          const iframe = player.getIframe();
+          if (iframe && iframe.src) {
+            if (index === currentIndex) {
+              player.playVideo();
+            } else {
+              player.pauseVideo();
+            }
+          }
+        } catch (error) {
+          // Silently handle if player isn't ready yet
+          console.debug('Player not ready yet:', error);
         }
       }
     });
   }, [currentIndex]);
 
   const handlePlayerReady = (event: YouTubeEvent, index: number) => {
-    playerRefs.current.set(index, event.target);
-    if (index === currentIndex) {
-      event.target.playVideo();
-      if (muted) {
-        event.target.mute();
+    const player = event.target;
+    playerRefs.current.set(index, player);
+    
+    // Use setTimeout to ensure player is fully attached to DOM
+    setTimeout(() => {
+      try {
+        if (index === currentIndex) {
+          if (muted) {
+            player.mute();
+          }
+          player.playVideo();
+        }
+      } catch (error) {
+        console.debug('Player initialization delayed:', error);
       }
-    }
+    }, 100);
   };
 
   const toggleMute = () => {
     const player = playerRefs.current.get(currentIndex);
     if (player) {
-      if (muted) {
-        player.unMute();
-      } else {
-        player.mute();
+      try {
+        if (muted) {
+          player.unMute();
+        } else {
+          player.mute();
+        }
+        setMuted(!muted);
+      } catch (error) {
+        console.debug('Mute toggle error:', error);
       }
-      setMuted(!muted);
     }
   };
 
