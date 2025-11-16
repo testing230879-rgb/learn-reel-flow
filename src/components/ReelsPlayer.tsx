@@ -134,7 +134,7 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
               <>
                 <button
                   onClick={toggleMute}
-                  className="absolute bottom-24 right-4 p-3 bg-black/50 backdrop-blur-sm rounded-full hover:bg-black/70 transition-colors"
+                  className="absolute bottom-24 right-4 p-3 bg-black/50 backdrop-blur-sm rounded-full hover:bg-black/70 transition-all hover:scale-110 active:scale-95 animate-in fade-in-0 slide-in-from-right-5"
                 >
                   {muted ? (
                     <VolumeX className="h-5 w-5 text-white" />
@@ -145,14 +145,14 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
                 
                 <button
                   onClick={() => onSaveVideo(video)}
-                  className="absolute bottom-8 right-4 px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors text-sm font-medium"
+                  className="absolute bottom-8 right-4 px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 text-sm font-medium shadow-lg hover:shadow-xl animate-in fade-in-0 slide-in-from-right-5"
                 >
                   Save
                 </button>
               </>
             )}
             
-            <div className="absolute bottom-8 left-4 right-24 text-white">
+            <div className="absolute bottom-8 left-4 right-24 text-white animate-in fade-in-0 slide-in-from-bottom-5">
               <p className="text-sm font-medium line-clamp-2 drop-shadow-lg">
                 {video.title}
               </p>
