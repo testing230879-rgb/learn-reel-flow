@@ -40,7 +40,7 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
 
   return (
     <>
-      <div className="relative flex items-center justify-between gap-2 px-3 py-2 bg-background/5 backdrop-blur-sm border-b border-border/5">
+      <div className="relative flex items-center justify-between gap-2 px-3 py-2 bg-white/5 dark:bg-black/5 backdrop-blur-lg border-b border-white/10 dark:border-white/5">
         <Button
           variant="ghost"
           size="sm"
