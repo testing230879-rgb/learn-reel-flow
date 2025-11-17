@@ -121,48 +121,50 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
           key={video.id}
           className="h-full w-full snap-start snap-always flex items-center justify-center bg-background relative"
         >
-          <div className="w-full max-w-md aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
-            <YouTube
-              videoId={video.id}
-              opts={opts}
-              onReady={(e) => handlePlayerReady(e, index)}
-              onEnd={(e) => e.target.playVideo()}
-              className="w-full h-full"
-            />
+          <div className="relative flex items-center justify-center gap-4 w-full px-4">
+            <div className="w-full max-w-md aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+              <YouTube
+                videoId={video.id}
+                opts={opts}
+                onReady={(e) => handlePlayerReady(e, index)}
+                onEnd={(e) => e.target.playVideo()}
+                className="w-full h-full"
+              />
+              
+              <div className="absolute bottom-8 left-4 right-4 text-white animate-in fade-in-0 slide-in-from-bottom-5">
+                <p className="text-sm font-medium line-clamp-2 drop-shadow-lg">
+                  {video.title}
+                </p>
+                <p className="text-xs text-gray-300 mt-1 drop-shadow-lg">
+                  {video.channelTitle}
+                </p>
+              </div>
+            </div>
             
-            <>
+            <div className="flex flex-col gap-3">
               <button
                 onClick={toggleMute}
                 className={cn(
-                  "absolute bottom-24 right-4 p-3 bg-black/50 backdrop-blur-sm rounded-full hover:bg-black/70 transition-all hover:scale-110 active:scale-95",
+                  "p-3 bg-muted/80 backdrop-blur-sm rounded-full hover:bg-muted transition-all hover:scale-110 active:scale-95",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
                 {muted ? (
-                  <VolumeX className="h-5 w-5 text-white" />
+                  <VolumeX className="h-5 w-5" />
                 ) : (
-                  <Volume2 className="h-5 w-5 text-white" />
+                  <Volume2 className="h-5 w-5" />
                 )}
               </button>
               
               <button
                 onClick={() => onSaveVideo(video)}
                 className={cn(
-                  "absolute bottom-8 right-4 px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 text-sm font-medium shadow-lg hover:shadow-xl",
+                  "px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 text-sm font-medium shadow-lg hover:shadow-xl",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
                 Save
               </button>
-            </>
-            
-            <div className="absolute bottom-8 left-4 right-24 text-white animate-in fade-in-0 slide-in-from-bottom-5">
-              <p className="text-sm font-medium line-clamp-2 drop-shadow-lg">
-                {video.title}
-              </p>
-              <p className="text-xs text-gray-300 mt-1 drop-shadow-lg">
-                {video.channelTitle}
-              </p>
             </div>
           </div>
         </div>
