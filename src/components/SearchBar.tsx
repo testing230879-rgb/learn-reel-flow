@@ -17,7 +17,9 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  const hideTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     if (query.length > 0) {
@@ -31,6 +33,41 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
     }
   }, [query, suggestions]);
 
+  useEffect(() => {
+    const resetTimer = () => {
+      setIsVisible(true);
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+      hideTimeoutRef.current = setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+    };
+
+    const handleActivity = () => {
+      resetTimer();
+    };
+
+    // Show bar initially
+    resetTimer();
+
+    // Listen for user activity
+    window.addEventListener('mousemove', handleActivity);
+    window.addEventListener('touchstart', handleActivity);
+    window.addEventListener('scroll', handleActivity);
+    window.addEventListener('click', handleActivity);
+
+    return () => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+      window.removeEventListener('mousemove', handleActivity);
+      window.removeEventListener('touchstart', handleActivity);
+      window.removeEventListener('scroll', handleActivity);
+      window.removeEventListener('click', handleActivity);
+    };
+  }, []);
+
   const handleSearch = (searchQuery: string) => {
     setQuery(searchQuery);
     onSearch(searchQuery);
@@ -40,7 +77,10 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
 
   return (
     <>
-      <div className="relative flex items-center justify-between gap-2 px-3 py-2 bg-white/5 dark:bg-black/5 backdrop-blur-lg border-b border-white/10 dark:border-white/5">
+      <div className={cn(
+        "relative flex items-center justify-between gap-2 px-3 py-2 bg-white/5 dark:bg-black/5 backdrop-blur-lg border-b border-white/10 dark:border-white/5 transition-all duration-500",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+      )}>
         <Button
           variant="ghost"
           size="sm"
