@@ -99,6 +99,7 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
     toast({
       title: "Video saved!",
       description: "Added to your saved videos",
+      duration: 2000,
     });
   };
 
