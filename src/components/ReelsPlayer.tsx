@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import { YouTubeVideo } from "@/hooks/useYouTubeSearch";
 import { cn } from "@/lib/utils";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface ReelsPlayerProps {
   videos: YouTubeVideo[];
@@ -12,8 +13,10 @@ interface ReelsPlayerProps {
 export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [muted, setMuted] = useState(true);
+  const [savedVideos, setSavedVideos] = useState<Set<string>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRefs = useRef<Map<number, any>>(new Map());
+  const { toast } = useToast();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -90,6 +93,15 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
     }
   };
 
+  const handleSaveVideo = (video: YouTubeVideo) => {
+    onSaveVideo(video);
+    setSavedVideos(prev => new Set(prev).add(video.id));
+    toast({
+      title: "Video saved!",
+      description: "Added to your saved videos",
+    });
+  };
+
   const opts = {
     height: "100%",
     width: "100%",
@@ -157,13 +169,23 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
               </button>
               
               <button
-                onClick={() => onSaveVideo(video)}
+                onClick={() => handleSaveVideo(video)}
                 className={cn(
-                  "px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 text-sm font-medium shadow-lg hover:shadow-xl",
+                  "px-4 py-2 rounded-full transition-all hover:scale-105 active:scale-95 text-sm font-medium shadow-lg hover:shadow-xl flex items-center gap-2",
+                  savedVideos.has(video.id)
+                    ? "bg-green-600 text-white hover:bg-green-700"
+                    : "bg-primary text-primary-foreground hover:bg-primary/90",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
-                Save
+                {savedVideos.has(video.id) ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Saved
+                  </>
+                ) : (
+                  "Save"
+                )}
               </button>
             </div>
           </div>
