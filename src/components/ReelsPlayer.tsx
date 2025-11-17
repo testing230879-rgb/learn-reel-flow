@@ -133,60 +133,58 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
           key={video.id}
           className="h-full w-full snap-start snap-always flex items-center justify-center bg-background relative"
         >
-          <div className="relative flex items-center justify-center gap-4 w-full px-4">
-            <div className="w-full max-w-md aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
-              <YouTube
-                videoId={video.id}
-                opts={opts}
-                onReady={(e) => handlePlayerReady(e, index)}
-                onEnd={(e) => e.target.playVideo()}
-                className="w-full h-full"
-              />
-              
-              <div className="absolute bottom-8 left-4 right-4 text-white animate-in fade-in-0 slide-in-from-bottom-5">
-                <p className="text-sm font-medium line-clamp-2 drop-shadow-lg">
-                  {video.title}
-                </p>
-                <p className="text-xs text-gray-300 mt-1 drop-shadow-lg">
-                  {video.channelTitle}
-                </p>
-              </div>
-            </div>
+          <div className="w-full max-w-md aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+            <YouTube
+              videoId={video.id}
+              opts={opts}
+              onReady={(e) => handlePlayerReady(e, index)}
+              onEnd={(e) => e.target.playVideo()}
+              className="w-full h-full"
+            />
             
-            <div className="flex flex-col gap-3">
+            <div className="absolute top-4 right-4 flex flex-col gap-2">
               <button
                 onClick={toggleMute}
                 className={cn(
-                  "p-3 bg-muted/80 backdrop-blur-sm rounded-full hover:bg-muted transition-all hover:scale-110 active:scale-95",
+                  "p-2 bg-black/40 backdrop-blur-sm rounded-full hover:bg-black/60 transition-all hover:scale-110 active:scale-95",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
                 {muted ? (
-                  <VolumeX className="h-5 w-5" />
+                  <VolumeX className="h-4 w-4 text-white" />
                 ) : (
-                  <Volume2 className="h-5 w-5" />
+                  <Volume2 className="h-4 w-4 text-white" />
                 )}
               </button>
               
               <button
                 onClick={() => handleSaveVideo(video)}
                 className={cn(
-                  "px-4 py-2 rounded-full transition-all hover:scale-105 active:scale-95 text-sm font-medium shadow-lg hover:shadow-xl flex items-center gap-2",
+                  "px-3 py-1.5 rounded-full transition-all hover:scale-105 active:scale-95 text-xs font-medium shadow-lg hover:shadow-xl flex items-center gap-1.5",
                   savedVideos.has(video.id)
-                    ? "bg-green-600 text-white hover:bg-green-700"
-                    : "bg-primary text-primary-foreground hover:bg-primary/90",
+                    ? "bg-green-600/90 text-white hover:bg-green-600 backdrop-blur-sm"
+                    : "bg-primary/90 text-primary-foreground hover:bg-primary backdrop-blur-sm",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
                 {savedVideos.has(video.id) ? (
                   <>
-                    <Check className="h-4 w-4" />
+                    <Check className="h-3 w-3" />
                     Saved
                   </>
                 ) : (
                   "Save"
                 )}
               </button>
+            </div>
+            
+            <div className="absolute bottom-8 left-4 right-4 text-white animate-in fade-in-0 slide-in-from-bottom-5">
+              <p className="text-sm font-medium line-clamp-2 drop-shadow-lg">
+                {video.title}
+              </p>
+              <p className="text-xs text-gray-300 mt-1 drop-shadow-lg">
+                {video.channelTitle}
+              </p>
             </div>
           </div>
         </div>
