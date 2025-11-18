@@ -78,37 +78,37 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
   return (
     <>
       <div className={cn(
-        "relative flex items-center justify-between gap-2 px-3 py-2 bg-white/5 dark:bg-black/5 backdrop-blur-lg border-b border-white/10 dark:border-white/5 transition-all duration-500",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-background/80 backdrop-blur-md rounded-full shadow-lg border border-border/50 transition-all duration-300",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8 pointer-events-none"
       )}>
         <Button
           variant="ghost"
-          size="sm"
+          size="icon"
           onClick={() => setIsDialogOpen(true)}
-          className="gap-1.5 hover:bg-muted/50 transition-all hover:scale-105 active:scale-95 h-8 text-xs px-2"
+          className="h-9 w-9 rounded-full hover:bg-accent transition-all hover:scale-110 active:scale-95"
         >
-          <Search className="h-3.5 w-3.5" />
-          <span>Search</span>
+          <Search className="h-5 w-5" />
         </Button>
 
-        <div className="flex items-center gap-1.5">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onToggleSaved}
-            className="h-7 w-7 text-foreground hover:bg-muted/50 transition-all hover:scale-110 active:scale-95"
-          >
-            <Bookmark className="h-3.5 w-3.5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onToggleNotes}
-            className="h-7 w-7 text-foreground hover:bg-muted/50 transition-all hover:scale-110 active:scale-95"
-          >
-            <StickyNote className="h-3.5 w-3.5" />
-          </Button>
-        </div>
+        <div className="w-px h-6 bg-border/50" />
+
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onToggleSaved}
+          className="h-9 w-9 rounded-full hover:bg-accent transition-all hover:scale-110 active:scale-95"
+        >
+          <Bookmark className="h-5 w-5" />
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onToggleNotes}
+          className="h-9 w-9 rounded-full hover:bg-accent transition-all hover:scale-110 active:scale-95"
+        >
+          <StickyNote className="h-5 w-5" />
+        </Button>
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
