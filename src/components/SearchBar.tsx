@@ -78,25 +78,23 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
   return (
     <>
       <div className={cn(
-        "fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-background/80 backdrop-blur-md rounded-full shadow-lg border border-border/50 transition-all duration-300",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8 pointer-events-none"
+        "fixed top-20 right-4 z-50 flex flex-col gap-3 p-2 bg-background/10 backdrop-blur-sm rounded-2xl border border-white/10 transition-all duration-300",
+        isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-20 pointer-events-none"
       )}>
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setIsDialogOpen(true)}
-          className="h-9 w-9 rounded-full hover:bg-accent transition-all hover:scale-110 active:scale-95"
+          className="h-12 w-12 rounded-full hover:bg-white/10 transition-all hover:scale-110 active:scale-95"
         >
           <Search className="h-5 w-5" />
         </Button>
-
-        <div className="w-px h-6 bg-border/50" />
 
         <Button
           variant="ghost"
           size="icon"
           onClick={onToggleSaved}
-          className="h-9 w-9 rounded-full hover:bg-accent transition-all hover:scale-110 active:scale-95"
+          className="h-12 w-12 rounded-full hover:bg-white/10 transition-all hover:scale-110 active:scale-95"
         >
           <Bookmark className="h-5 w-5" />
         </Button>
@@ -105,7 +103,7 @@ export const SearchBar = ({ onSearch, onToggleNotes, onToggleSaved, suggestions 
           variant="ghost"
           size="icon"
           onClick={onToggleNotes}
-          className="h-9 w-9 rounded-full hover:bg-accent transition-all hover:scale-110 active:scale-95"
+          className="h-12 w-12 rounded-full hover:bg-white/10 transition-all hover:scale-110 active:scale-95"
         >
           <StickyNote className="h-5 w-5" />
         </Button>
