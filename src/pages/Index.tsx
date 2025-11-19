@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { ApiKeyModal } from "@/components/ApiKeyModal";
-import { SearchBar } from "@/components/SearchBar";
+import { BottomNav } from "@/components/BottomNav";
 import { ReelsPlayer } from "@/components/ReelsPlayer";
 import { NotesPanel } from "@/components/NotesPanel";
 import { useYouTubeSearch, YouTubeVideo } from "@/hooks/useYouTubeSearch";
 import { useNavigate } from "react-router-dom";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 interface Playlist {
   id: string;
@@ -15,8 +16,9 @@ interface Playlist {
 const Index = () => {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [showApiModal, setShowApiModal] = useState(false);
-  const [notesOpen, setNotesOpen] = useState(true);
+  const [notesOpen, setNotesOpen] = useState(false);
   const [currentTopic, setCurrentTopic] = useState("");
+  const [currentView, setCurrentView] = useState<"home" | "search" | "notes" | "saved">("home");
   const navigate = useNavigate();
 
   const { videos, searchVideos, getRandomTopic, PREDEFINED_TOPICS } = useYouTubeSearch(apiKey);
@@ -77,23 +79,25 @@ const Index = () => {
     <>
       <ApiKeyModal open={showApiModal} onSubmit={handleApiKeySubmit} />
       
-      <div className="h-screen flex flex-col overflow-hidden">
-        <SearchBar
+      <div className="h-screen flex flex-col overflow-hidden pb-16">
+        <div className="flex-1 overflow-hidden">
+          <ReelsPlayer videos={videos} onSaveVideo={handleSaveVideo} />
+        </div>
+
+        <Sheet open={notesOpen} onOpenChange={setNotesOpen}>
+          <SheetContent side="right" className="w-full sm:w-[400px] p-0">
+            <NotesPanel isOpen={notesOpen} onClose={() => setNotesOpen(false)} />
+          </SheetContent>
+        </Sheet>
+
+        <BottomNav
           onSearch={handleSearch}
           onToggleNotes={() => setNotesOpen(!notesOpen)}
           onToggleSaved={() => navigate("/saved")}
           suggestions={PREDEFINED_TOPICS}
+          currentView={currentView}
+          onViewChange={setCurrentView}
         />
-
-        <div className="flex-1 flex overflow-hidden">
-          <div className={`flex-1 ${notesOpen ? "lg:w-[70%]" : "w-full"}`}>
-            <ReelsPlayer videos={videos} onSaveVideo={handleSaveVideo} />
-          </div>
-
-          <div className={`${notesOpen ? "w-full lg:w-[30%]" : "hidden"} ${notesOpen ? "block" : ""}`}>
-            <NotesPanel isOpen={notesOpen} onClose={() => setNotesOpen(false)} />
-          </div>
-        </div>
       </div>
     </>
   );
