@@ -43,7 +43,7 @@ const ApiTutorial = () => {
             <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
               <li>Click on the project dropdown at the top</li>
               <li>Click "New Project"</li>
-              <li>Give your project a name (e.g., "FocusedLearn")</li>
+              <li>Give your project a name (e.g., "Bloom Scrolling")</li>
               <li>Click "Create"</li>
             </ol>
           </section>
@@ -73,7 +73,7 @@ const ApiTutorial = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4">Step 5: Use Your API Key</h2>
             <p className="text-muted-foreground mb-4">
-              Copy your API key and paste it into FocusedLearn to start watching educational shorts!
+              Copy your API key and paste it into Bloom Scrolling to start watching educational shorts!
             </p>
             <Button onClick={() => navigate("/")} className="bg-primary hover:bg-primary/90">
               Go Back and Enter API Key
