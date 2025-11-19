@@ -5,6 +5,8 @@ import { ReelsPlayer } from "@/components/ReelsPlayer";
 import { NotesPanel } from "@/components/NotesPanel";
 import { useYouTubeSearch, YouTubeVideo } from "@/hooks/useYouTubeSearch";
 import { useNavigate } from "react-router-dom";
+import bloomLogoDark from "@/assets/bloom-logo-dark.png";
+import bloomLogoLight from "@/assets/bloom-logo-light.png";
 
 interface Playlist {
   id: string;
@@ -78,6 +80,19 @@ const Index = () => {
       <ApiKeyModal open={showApiModal} onSubmit={handleApiKeySubmit} />
       
       <div className="h-screen flex flex-col overflow-hidden">
+        <header className="h-16 flex items-center justify-center border-b border-border bg-background/80 backdrop-blur-sm">
+          <img 
+            src={bloomLogoLight} 
+            alt="Bloom Scrolling" 
+            className="h-10 dark:hidden"
+          />
+          <img 
+            src={bloomLogoDark} 
+            alt="Bloom Scrolling" 
+            className="h-10 hidden dark:block"
+          />
+        </header>
+
         <SearchBar
           onSearch={handleSearch}
           onToggleNotes={() => setNotesOpen(!notesOpen)}
