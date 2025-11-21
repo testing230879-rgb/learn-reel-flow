@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import { YouTubeVideo } from "@/hooks/useYouTubeSearch";
 import { cn } from "@/lib/utils";
-import { Volume2, VolumeX, Check } from "lucide-react";
+import { Volume2, VolumeX, Heart, MessageCircle, Share2, Bookmark } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface ReelsPlayerProps {
@@ -132,9 +132,9 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
       {videos.map((video, index) => (
         <div
           key={video.id}
-          className="h-full w-full snap-start snap-always flex items-center justify-center bg-background relative"
+          className="h-full w-full snap-start snap-always flex items-center justify-center bg-black relative"
         >
-          <div className="w-full max-w-md aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+          <div className="w-full h-full bg-black relative">
             <YouTube
               videoId={video.id}
               opts={opts}
@@ -143,48 +143,93 @@ export const ReelsPlayer = ({ videos, onSaveVideo }: ReelsPlayerProps) => {
               className="w-full h-full"
             />
             
-            <div className="absolute top-4 right-4 flex flex-col gap-2">
+            {/* Right Side Action Buttons - Instagram Style */}
+            <div className="absolute right-3 bottom-24 flex flex-col gap-6 items-center">
               <button
-                onClick={toggleMute}
                 className={cn(
-                  "p-2 bg-black/40 backdrop-blur-sm rounded-full hover:bg-black/60 transition-all hover:scale-110 active:scale-95",
+                  "flex flex-col items-center gap-1 transition-all hover:scale-110 active:scale-95",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
-                {muted ? (
-                  <VolumeX className="h-4 w-4 text-white" />
-                ) : (
-                  <Volume2 className="h-4 w-4 text-white" />
-                )}
+                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
+                  <Heart className="h-6 w-6 text-white" />
+                </div>
+                <span className="text-white text-xs font-medium drop-shadow-lg">234K</span>
               </button>
-              
+
+              <button
+                className={cn(
+                  "flex flex-col items-center gap-1 transition-all hover:scale-110 active:scale-95",
+                  index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
+                )}
+              >
+                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
+                  <MessageCircle className="h-6 w-6 text-white" />
+                </div>
+                <span className="text-white text-xs font-medium drop-shadow-lg">1.2K</span>
+              </button>
+
               <button
                 onClick={() => handleSaveVideo(video)}
                 className={cn(
-                  "px-3 py-1.5 rounded-full transition-all hover:scale-105 active:scale-95 text-xs font-medium shadow-lg hover:shadow-xl flex items-center gap-1.5",
-                  savedVideos.has(video.id)
-                    ? "bg-green-600/90 text-white hover:bg-green-600 backdrop-blur-sm"
-                    : "bg-primary/90 text-primary-foreground hover:bg-primary backdrop-blur-sm",
+                  "flex flex-col items-center gap-1 transition-all hover:scale-110 active:scale-95",
                   index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
               >
-                {savedVideos.has(video.id) ? (
-                  <>
-                    <Check className="h-3 w-3" />
-                    Saved
-                  </>
-                ) : (
-                  "Save"
+                <div className={cn(
+                  "w-12 h-12 rounded-full backdrop-blur-md flex items-center justify-center transition-colors",
+                  savedVideos.has(video.id)
+                    ? "bg-pink-500/90 hover:bg-pink-500"
+                    : "bg-white/20 hover:bg-white/30"
+                )}>
+                  <Bookmark className={cn(
+                    "h-6 w-6",
+                    savedVideos.has(video.id) ? "text-white fill-white" : "text-white"
+                  )} />
+                </div>
+                <span className="text-white text-xs font-medium drop-shadow-lg">Save</span>
+              </button>
+
+              <button
+                className={cn(
+                  "flex flex-col items-center gap-1 transition-all hover:scale-110 active:scale-95",
+                  index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
                 )}
+              >
+                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
+                  <Share2 className="h-6 w-6 text-white" />
+                </div>
+              </button>
+
+              <button
+                onClick={toggleMute}
+                className={cn(
+                  "flex flex-col items-center gap-1 transition-all hover:scale-110 active:scale-95",
+                  index === currentIndex && "animate-in fade-in-0 slide-in-from-right-5"
+                )}
+              >
+                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
+                  {muted ? (
+                    <VolumeX className="h-6 w-6 text-white" />
+                  ) : (
+                    <Volume2 className="h-6 w-6 text-white" />
+                  )}
+                </div>
               </button>
             </div>
             
-            <div className="absolute bottom-8 left-4 right-4 text-white animate-in fade-in-0 slide-in-from-bottom-5">
-              <p className="text-sm font-medium line-clamp-2 drop-shadow-lg">
+            {/* Bottom Profile Info - Instagram Style */}
+            <div className="absolute bottom-20 left-4 right-20 text-white animate-in fade-in-0 slide-in-from-bottom-5">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 p-[2px]">
+                  <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                    <span className="text-xs font-bold">{video.channelTitle.charAt(0)}</span>
+                  </div>
+                </div>
+                <span className="text-sm font-semibold drop-shadow-lg">{video.channelTitle}</span>
+              </div>
+              <p className="text-sm line-clamp-2 drop-shadow-lg">
                 {video.title}
-              </p>
-              <p className="text-xs text-gray-300 mt-1 drop-shadow-lg">
-                {video.channelTitle}
               </p>
             </div>
           </div>
