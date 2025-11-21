@@ -69,7 +69,7 @@ export const BottomNav = ({
   return (
     <>
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border">
-        <div className="flex items-center justify-around h-16 max-w-md mx-auto">
+        <div className="flex items-center justify-around h-12 max-w-md mx-auto">
           <Button
             variant="ghost"
             size="icon"
@@ -79,7 +79,7 @@ export const BottomNav = ({
               currentView === "home" && "text-primary"
             )}
           >
-            <Home className="h-6 w-6" />
+            <Home className="h-5 w-5" />
           </Button>
 
           <Button
@@ -91,7 +91,7 @@ export const BottomNav = ({
               currentView === "search" && "text-primary"
             )}
           >
-            <Search className="h-6 w-6" />
+            <Search className="h-5 w-5" />
           </Button>
 
           <Button
@@ -103,7 +103,7 @@ export const BottomNav = ({
               currentView === "notes" && "text-primary"
             )}
           >
-            <StickyNote className="h-6 w-6" />
+            <StickyNote className="h-5 w-5" />
           </Button>
 
           <Button
@@ -115,7 +115,7 @@ export const BottomNav = ({
               currentView === "saved" && "text-primary"
             )}
           >
-            <Bookmark className="h-6 w-6" />
+            <Bookmark className="h-5 w-5" />
           </Button>
         </div>
       </div>
