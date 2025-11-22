@@ -2,6 +2,36 @@
 
 A modern, Instagram Reels-inspired YouTube video player built as a university project. This application transforms traditional YouTube browsing into an engaging, vertical scrolling experience with a minimalist design and intuitive interface.
 
+## 📸 Screenshots & Demo
+
+### Main Interface
+![Bloom Scrolling App](https://via.placeholder.com/800x450/667eea/ffffff?text=Add+Your+Screenshots+Here)
+
+> **Note**: Add your actual screenshots here by:
+> 1. Taking screenshots of the app in action
+> 2. Uploading them to `public/` folder (e.g., `public/screenshot-1.png`)
+> 3. Replacing the placeholder URLs with actual paths (e.g., `![App Screenshot](screenshot-1.png)`)
+
+### Key Features Showcase
+
+**Full-Screen Video Player**
+![Video Player](https://via.placeholder.com/800x450/667eea/ffffff?text=Full-Screen+Video+Player)
+
+**Instagram-Style Interface**
+![Instagram Interface](https://via.placeholder.com/800x450/667eea/ffffff?text=Instagram-Style+UI)
+
+**Search & Discovery**
+![Search Feature](https://via.placeholder.com/800x450/667eea/ffffff?text=Search+Feature)
+
+### 🎥 Demo Video
+> Add a demo GIF or video link here to showcase the scrolling experience and interactions.
+> 
+> Recommended tools for creating GIFs:
+> - [ScreenToGif](https://www.screentogif.com/) (Windows)
+> - [Kap](https://getkap.co/) (Mac)
+> - [Peek](https://github.com/phw/peek) (Linux)
+> - [LICEcap](https://www.cockos.com/licecap/) (Cross-platform)
+
 ## 📖 Project Overview
 
 Bloom Scrolling is a web-based video streaming application that fetches YouTube videos based on user searches and displays them in a full-screen, vertical scrolling format similar to Instagram Reels or TikTok. The project demonstrates modern web development practices, API integration, and responsive UI/UX design.
