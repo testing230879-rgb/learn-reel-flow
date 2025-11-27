@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface ApiKeyModalProps {
   open: boolean;
@@ -43,12 +44,12 @@ export const ApiKeyModal = ({ open, onSubmit }: ApiKeyModalProps) => {
           >
             Continue
           </Button>
-          <a 
-            href="/api-tutorial" 
+          <Link 
+            to="/api-tutorial" 
             className="block text-center text-sm text-primary hover:underline"
           >
             How to get an API key?
-          </a>
+          </Link>
         </div>
       </DialogContent>
     </Dialog>
